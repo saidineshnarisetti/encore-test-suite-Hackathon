@@ -1,0 +1,139 @@
+ID,Name,Description,Status,Priority,Automation Status,Preconditions,Test Steps (Steps),Test Steps (Results),Test Type,References
+T001,Guest can enter app without sign-in,Verify that tapping 'Continue as Guest' launches the app and navigates directly to the event catalog without requiring any credentials or form fields.,Active,High,not_automated,App is installed and launched for the first time in a fresh session.,Launch the Encore app ~ App opens to the guest entry screen,,smoke & sanity,None
+,,,,,,,Tap 'Continue as Guest' ~ No form fields or sign-in prompts are shown,,,
+,,,,,,,Observe the resulting screen ~ Event catalog (Event List) is displayed immediately,,,
+T002,Event catalog displays all required event details,"Verify that each event card in the catalog shows title, category, venue, date/time, and starting price.",Active,High,not_automated,Guest has tapped 'Continue as Guest' and is on the Event List screen.,View the event catalog ~ A scrollable list of upcoming events is displayed,,functional,None
+,,,,,,,Inspect any event card ~ Event title is visible,,,
+,,,,,,,Inspect the same event card ~ Category label is visible,,,
+,,,,,,,Inspect the same event card ~ Venue name is visible,,,
+,,,,,,,Inspect the same event card ~ Date and time are visible,,,
+,,,,,,,Inspect the same event card ~ Starting price is visible,,,
+T003,Category filter chips narrow the event list,"Verify that selecting a category chip filters the catalog to show only events of that category, and selecting 'All' resets the full list.",Active,High,not_automated,Guest is on the Event List screen with all events visible.,Observe the filter chips row above the event list ~ 'All' chip and one chip per event category present in the catalog are displayed,,functional,None
+,,,,,,,"Tap a specific category chip (e.g., 'Music') ~ Event list narrows to show only Music events",,,
+,,,,,,,Verify no events from other categories appear ~ Only Music events are listed,,,
+,,,,,,,Tap the 'All' chip ~ Full event catalog is restored with events from all categories,,,
+T004,Sold-out events are marked and cannot be selected,Verify that events with no remaining seats display a sold-out indicator and are not tappable to proceed to event details.,Active,High,not_automated,At least one sold-out event exists in the catalog. Guest is on the Event List screen.,Scroll through the event catalog ~ A sold-out event is visible with a sold-out marker,,functional,None
+,,,,,,,Attempt to tap the sold-out event ~ No navigation to Event Details occurs; the event remains unselectable,,,
+T005,Event catalog is scrollable with 30 events across 5 categories,"Verify the catalog contains events across all 5 categories (Music, Theater, Comedy, Classical, Sports) and the list is scrollable.",Active,Medium,not_automated,Guest is on the Event List screen.,Scroll down through the event list ~ List scrolls smoothly and more events load into view,,functional,None
+,,,,,,,"Check that events from all 5 categories (Music, Theater, Comedy, Classical, Sports) are present ~ At least one event per category is visible across the catalog",,,
+,,,,,,,"Tap each category chip in turn ~ Each chip returns at least one event, confirming meaningful variety per category",,,
+T006,Event Details screen shows full event information,"Verify that the Event Details screen displays full description, venue, date/time, and seating breakdown (Standard vs VIP counts and remaining seats).",Active,High,not_automated,Guest is on the Event List screen and at least one available event exists.,Tap an available event from the catalog ~ Event Details screen opens,,functional,None
+,,,,,,,Verify full event description is displayed ~ Description text is visible,,,
+,,,,,,,Verify venue name is displayed ~ Venue name is shown,,,
+,,,,,,,Verify date and time are displayed ~ Date and time are shown,,,
+,,,,,,,"Verify seating breakdown is displayed ~ Standard seat count, VIP seat count, and remaining seats for each tier are visible",,,
+,,,,,,,Tap the proceed button to go to seat selection ~ Seat Selection screen opens,,,
+T007,Event Details screen shows correct remaining seat counts,Verify that the remaining seat counts on the Event Details screen accurately reflect seats not yet booked.,Active,Medium,not_automated,Guest is on the Event Details screen for an event with a known number of available seats.,Note the remaining Standard and VIP seat counts shown on Event Details ~ Counts are displayed,,functional,None
+,,,,,,,Proceed to Seat Selection ~ Seat map is shown,,,
+,,,,,,,Count the available (unbooked) Standard and VIP seats on the map ~ Available seat count matches the counts shown on Event Details,,,
+T008,"Seat map displays tier, price, and availability at a glance","Verify that each seat on the seat map clearly shows its tier (Standard/VIP), price, and availability status (available, booked, or selected).",Active,High,not_automated,Guest has navigated from Event Details to the Seat Selection screen.,View the seat map ~ Seats are grouped by row,,functional,None
+,,,,,,,Inspect an available seat ~ Tier (Standard or VIP) and price are visible; seat appears selectable,,,
+,,,,,,,"Inspect an already-booked seat ~ Seat is visually distinct (e.g., greyed out) and not selectable",,,
+,,,,,,,Tap an available seat ~ Seat changes to a 'selected' visual state,,,
+T009,Guest can select up to 10 seats in a single booking,Verify that a guest can select a maximum of 10 seats and is prevented from selecting an 11th seat.,Active,High,not_automated,Guest is on the Seat Selection screen for an event with more than 10 available seats.,Tap 10 available seats one by one ~ Each seat transitions to selected state; 10 seats are selected,,functional,None
+,,,,,,,Attempt to tap an 11th available seat ~ Selection is blocked; an error or limit message is displayed,,,
+,,,,,,,Verify the 10 previously selected seats remain selected ~ No previously selected seat is deselected automatically,,,
+T010,Guest can deselect a previously selected seat,Verify that tapping a selected seat deselects it and returns it to the available state.,Active,Medium,not_automated,Guest is on the Seat Selection screen with at least one seat already selected.,Tap a seat that is currently selected ~ Seat returns to the available (unselected) visual state,,functional,None
+,,,,,,,Verify the seat count decreases by one ~ Selection count updates correctly,,,
+T011,Already-booked seats cannot be selected,Verify that seats marked as already booked are not selectable by the guest.,Active,High,not_automated,Guest is on the Seat Selection screen for an event where at least one seat is already booked.,Identify a seat marked as already booked ~ Seat is visually distinct from available seats,,functional,None
+,,,,,,,Tap the booked seat ~ No selection occurs; seat state does not change,,,
+,,,,,,,Verify no error or navigation is triggered ~ App remains on Seat Selection screen with no unintended side effects,,,
+T012,Seat booked by one guest is unavailable to another guest,"Verify that once a seat is booked in one session, it no longer appears as available to a guest browsing the same event in a different session.",Active,High,not_automated,Two separate guest sessions are open. Session A has completed a booking for a specific seat on Event X.,"In Session B, navigate to Event X and open Seat Selection ~ Seat map is displayed",,functional,None
+,,,,,,,Locate the seat booked in Session A ~ The seat is shown as booked/unavailable,,,
+,,,,,,,Attempt to tap the booked seat ~ Seat cannot be selected,,,
+T013,Valid discount code SAVE10 applies 10% off Standard seats only,Verify that entering SAVE10 applies a 10% discount to Standard-tier seats and does not discount VIP-tier seats in the same booking.,Active,High,not_automated,Guest has selected at least one Standard seat and one VIP seat and is on the Discount Code screen.,Enter 'SAVE10' in the discount code field (any case) ~ Code is accepted,,functional,None
+,,,,,,,Observe the price breakdown ~ 10% discount is applied to Standard-tier seats,,,
+,,,,,,,Verify VIP-tier seats in the same booking ~ No discount is applied to VIP seats,,,
+,,,,,,,Proceed to Payment ~ Order total reflects the discounted Standard seat prices and full VIP seat prices,,,
+T014,Valid discount code FIRST20 applies 20% off all seats on first booking only,"Verify that FIRST20 gives 20% off any seat on the guest's first booking in a session, and is invalid on subsequent bookings.",Active,High,not_automated,Guest has not yet completed any booking in the current session. Guest has selected seats and is on the Discount Code screen.,Enter 'FIRST20' in the discount code field ~ Code is accepted,,functional,None
+,,,,,,,Observe the price breakdown ~ 20% discount is applied to all selected seats regardless of tier,,,
+,,,,,,,Complete the booking ~ Booking is confirmed,,,
+,,,,,,,Start a second booking and navigate to the Discount Code screen ~ Second booking flow is active,,,
+,,,,,,,Enter 'FIRST20' again ~ Code is rejected with an inline error message,,,
+,,,,,,,Verify checkout is not blocked ~ Guest can proceed to payment without the code,,,
+T015,"Valid discount code WELCOME15 applies 15% off from second booking onward, once only","Verify that WELCOME15 is invalid on the first booking, valid on the second booking, and invalid again after being used once.",Active,High,not_automated,Guest is in a fresh session. First booking has been completed without using WELCOME15.,"On the first booking's Discount Code screen, enter 'WELCOME15' ~ Code is rejected with an inline error",,functional,None
+,,,,,,,Complete the first booking without a discount code ~ First booking confirmed,,,
+,,,,,,,Start a second booking and navigate to the Discount Code screen ~ Second booking flow is active,,,
+,,,,,,,Enter 'WELCOME15' ~ Code is accepted; 15% discount applied to all selected seats,,,
+,,,,,,,Complete the second booking ~ Second booking confirmed,,,
+,,,,,,,Start a third booking and navigate to the Discount Code screen ~ Third booking flow is active,,,
+,,,,,,,Enter 'WELCOME15' ~ Code is rejected with an inline error; guest can proceed without it,,,
+T016,Invalid discount code shows inline error and does not block checkout,Verify that entering an unrecognized discount code shows an inline error message but allows the guest to proceed to payment without the code.,Active,High,not_automated,Guest has selected seats and is on the Discount Code screen.,"Enter an invalid code (e.g., 'BADCODE123') in the discount code field ~ Inline error message is displayed",,functional,None
+,,,,,,,Verify the error does not navigate away or block the screen ~ Guest remains on the Discount Code screen,,,
+,,,,,,,Proceed to payment without correcting the code ~ Payment screen opens with no discount applied,,,
+,,,,,,,Verify the order total reflects full seat prices ~ No unauthorized discount is applied,,,
+T017,Discount code field is case-insensitive,"Verify that discount codes are matched case-insensitively (e.g., 'save10', 'Save10', 'SAVE10' all apply the same discount).",Active,Medium,not_automated,Guest has selected at least one Standard seat and is on the Discount Code screen.,Enter 'save10' (all lowercase) in the discount code field ~ Code is accepted and 10% discount applied to Standard seats,,functional,None
+,,,,,,,Clear the code and enter 'Save10' (mixed case) ~ Code is accepted and same discount applied,,,
+,,,,,,,Clear the code and enter 'SAVE10' (all uppercase) ~ Code is accepted and same discount applied,,,
+T018,Discount code step is optional and can be skipped,Verify that a guest can proceed from the Discount Code screen to Payment without entering any code.,Active,Medium,not_automated,Guest has selected seats and is on the Discount Code screen.,Leave the discount code field empty ~ No code is entered,,functional,None
+,,,,,,,Tap the button to proceed to payment ~ Payment screen opens,,,
+,,,,,,,Verify the order total shows full seat prices with no discount ~ No discount is applied,,,
+T019,Payment screen shows full order summary before confirmation,"Verify that the Payment screen displays every selected seat, subtotal, any applied discount, and the final order total before the guest confirms payment.",Active,High,not_automated,Guest has selected seats and optionally applied a discount code. Guest is on the Payment screen.,View the Payment screen ~ All selected seats are listed with their tier and individual price,,functional,None
+,,,,,,,Verify subtotal is displayed ~ Subtotal equals the sum of all seat prices before discount,,,
+,,,,,,,Verify discount line is shown if a code was applied ~ Discount amount is displayed,,,
+,,,,,,,Verify final total is displayed ~ Total equals subtotal minus any discount,,,
+,,,,,,,Confirm the total is mathematically correct ~ Calculated total matches displayed total,,,
+T020,Confirming payment finalizes the booking and shows confirmation,Verify that tapping the confirm payment button finalizes the booking and navigates to the Booking Confirmation screen.,Active,High,not_automated,Guest is on the Payment screen with seats selected and order summary visible.,Tap the confirm payment button ~ Payment is processed (mocked),,functional,None
+,,,,,,,Verify navigation to Booking Confirmation screen ~ Confirmation screen is displayed,,,
+,,,,,,,Verify a confirmation number is shown ~ Unique confirmation number is visible,,,
+,,,,,,,Verify the event name is shown ~ Correct event is listed,,,
+,,,,,,,Verify each booked seat is listed ~ All selected seats appear on the confirmation,,,
+,,,,,,,Verify the final price paid is shown ~ Price matches the order total from the Payment screen,,,
+T021,No card details are collected during payment,"Verify that the mocked payment flow does not present any card number, CVV, or billing address fields.",Active,Medium,not_automated,Guest is on the Payment screen.,Inspect the Payment screen ~ No card number field is present,,functional,None
+,,,,,,,Verify no CVV or expiry date field is present ~ Payment screen contains only order summary and confirm button,,,
+,,,,,,,Tap confirm ~ Payment completes without any card data entry,,,
+T022,Booked seats are removed from availability after payment,Verify that seats finalized in a booking are no longer available on the seat map for the same event after payment completes.,Active,High,not_automated,Guest A has just completed a booking for specific seats on Event X.,"As Guest B (new session), navigate to Event X and open Seat Selection ~ Seat map is displayed",,regression,None
+,,,,,,,Locate the seats booked by Guest A ~ Those seats are shown as booked/unavailable,,,
+,,,,,,,Attempt to select one of those seats ~ Selection is not possible,,,
+T023,My Bookings lists all session bookings in reverse chronological order,"Verify that the My Bookings screen shows all bookings made in the current session, most recent first, each with event name, seats, total price, and confirmation number.",Active,High,not_automated,Guest has completed at least two bookings in the current session.,Navigate to the My Bookings screen ~ List of bookings is displayed,,functional,None
+,,,,,,,Verify the most recent booking appears first ~ Bookings are in reverse chronological order,,,
+,,,,,,,"Inspect each booking entry ~ Event name, booked seats, total price, and confirmation number are all visible",,,
+,,,,,,,Verify the count of entries matches the number of completed bookings in the session ~ All session bookings are listed,,,
+T024,My Bookings is empty at the start of a new session,Verify that My Bookings shows an empty state when no bookings have been made in the current session.,Active,Medium,not_automated,Guest has just started a new session and has not completed any bookings.,Navigate to the My Bookings screen ~ Screen is displayed,,functional,None
+,,,,,,,Verify no booking entries are shown ~ Empty state message or placeholder is displayed,,,
+,,,,,,,Verify no bookings from a previous session are shown ~ List contains only current-session data,,,
+T025,My Bookings does not persist across sessions,Verify that bookings from a previous session are not visible after the app is restarted in a new session.,Active,High,not_automated,Guest completed bookings in Session A. App is closed and reopened to start Session B.,"In Session A, complete at least one booking ~ Booking appears in My Bookings",,functional,None
+,,,,,,,Close the app and reopen it ~ New guest entry screen is shown,,,
+,,,,,,,Tap 'Continue as Guest' ~ Event catalog opens,,,
+,,,,,,,Navigate to My Bookings ~ No bookings from Session A are listed; My Bookings is empty,,,
+T026,VIP seats are priced higher than Standard seats for the same event,Verify that VIP-tier seats have a higher price than Standard-tier seats for the same event on both the seat map and the payment summary.,Active,Medium,not_automated,Guest is on the Seat Selection screen for an event that has both Standard and VIP seats available.,Inspect a Standard seat on the seat map ~ Standard seat price is displayed,,functional,None
+,,,,,,,Inspect a VIP seat on the same event's seat map ~ VIP seat price is displayed,,,
+,,,,,,,Compare the two prices ~ VIP seat price is higher than Standard seat price,,,
+,,,,,,,Select one Standard and one VIP seat and proceed to Payment ~ Payment summary shows VIP price greater than Standard price,,,
+T027,Venue seat map is consistent across events at the same venue,"Verify that two different events hosted at the same venue share the same seat map layout, with only availability differing.",Active,Medium,not_automated,At least two events are hosted at the same venue. Guest is on the Event List screen.,"Navigate to Event Details for Event A at Venue X, then open Seat Selection ~ Seat map layout is displayed; note the row and seat arrangement",,functional,None
+,,,,,,,"Go back and navigate to Event Details for Event B at Venue X, then open Seat Selection ~ Seat map layout is displayed",,,
+,,,,,,,Compare the two seat maps ~ Row structure and seat positions are identical; only availability (booked/available) differs,,,
+T028,Event dates are always in the future relative to today,"Verify that all events in the catalog show future dates regardless of when the app is opened, confirming date generation is relative to today.",Active,Medium,not_automated,Guest is on the Event List screen.,View the event catalog ~ All events are listed with their dates,,functional,None
+,,,,,,,Check the date of every visible event ~ All event dates are in the future relative to today's date,,,
+,,,,,,,Verify no event shows a past date ~ No historical dates appear in the catalog,,,
+T029,Selecting zero seats prevents proceeding to checkout,Verify that a guest cannot proceed past Seat Selection without selecting at least one seat.,Active,High,not_automated,Guest is on the Seat Selection screen with no seats selected.,Attempt to proceed to the Discount Code or Payment screen without selecting any seat ~ Proceed action is disabled or an error message is shown,,destructive,None
+,,,,,,,Verify the guest remains on the Seat Selection screen ~ No navigation to the next step occurs,,,
+T030,Discount applied per seat in a multi-seat booking,"Verify that when a discount code applies to only some seat tiers, the discount is calculated per eligible seat and the total reflects the correct mixed pricing.",Active,High,not_automated,Guest has selected 2 Standard seats and 2 VIP seats. Guest is on the Discount Code screen.,Enter 'SAVE10' ~ Code is accepted,,functional,None
+,,,,,,,Proceed to Payment ~ Payment summary is displayed,,,
+,,,,,,,Verify each Standard seat shows a 10% reduction ~ Standard seat prices are discounted,,,
+,,,,,,,Verify each VIP seat shows full price ~ VIP seat prices are not discounted,,,
+,,,,,,,Verify the order total equals (discounted Standard seats × 2) + (full VIP seats × 2) ~ Total is mathematically correct,,,
+T031,App is accessible with screen reader on guest entry screen,Verify that the guest entry screen is navigable using a screen reader and all interactive elements have accessible labels.,Active,Medium,not_automated,Screen reader (TalkBack/VoiceOver) is enabled on the device. App is launched.,Enable screen reader and open the app ~ Guest entry screen is announced by the screen reader,,accessibility,None
+,,,,,,,Navigate to the 'Continue as Guest' button using the screen reader ~ Button is announced with a meaningful label,,,
+,,,,,,,Activate the button via screen reader ~ App navigates to the Event List screen,,,
+T032,Seat map color coding is distinguishable without relying on color alone,"Verify that available, booked, and selected seat states are distinguishable by more than color (e.g., shape, label, or pattern) to support color-blind users.",Active,Medium,not_automated,Guest is on the Seat Selection screen.,"View the seat map ~ Available, booked, and selected seats are displayed",,accessibility,None
+,,,,,,,"Verify each state uses a visual differentiator beyond color (e.g., icon, pattern, or label) ~ States are distinguishable without relying solely on color",,,
+,,,,,,,"Simulate color-blind view (e.g., greyscale mode) ~ All three seat states remain visually distinct",,,
+T033,App layout adapts correctly on different screen sizes,"Verify that the event catalog, seat map, and payment screens render correctly on small and large phone screen sizes without truncation or overflow.",Active,Medium,not_automated,"App is installed on devices with varying screen sizes (small ~4.7"" and large ~6.7"").",Open the app on a small screen device ~ Guest entry screen renders without truncation,,compatibility,None
+,,,,,,,Navigate to the Event List ~ All event cards are fully visible and scrollable,,,
+,,,,,,,Navigate to Seat Selection ~ Seat map is fully visible; no seats are clipped,,,
+,,,,,,,Open the app on a large screen device ~ All screens render correctly with no excessive whitespace or misalignment,,,
+T034,App functions correctly on both Android and iOS,Verify that the complete booking flow works on both Android and iOS platforms without platform-specific errors.,Active,High,not_automated,App is installed on an Android device and an iOS device.,On Android: complete the full flow from guest entry through booking confirmation ~ All screens render and function correctly,,compatibility,None
+,,,,,,,On iOS: complete the full flow from guest entry through booking confirmation ~ All screens render and function correctly,,,
+,,,,,,,Compare behavior between platforms ~ No platform-specific UI or functional discrepancies,,,
+T035,Booking confirmation number is unique per booking,Verify that each completed booking receives a distinct confirmation number.,Active,High,not_automated,Guest has completed at least two bookings in the current session.,Complete Booking 1 and note the confirmation number ~ Confirmation number is displayed,,functional,None
+,,,,,,,Complete Booking 2 and note the confirmation number ~ Confirmation number is displayed,,,
+,,,,,,,Compare the two confirmation numbers ~ The two numbers are different,,,
+T036,Booking confirmation matches selected seats and price,"Verify that the Booking Confirmation screen accurately reflects the seats selected and the final price paid, including any discount.",Active,High,not_automated,Guest has just completed a booking with a known set of seats and an applied discount code.,View the Booking Confirmation screen ~ Confirmation is displayed,,functional,None
+,,,,,,,Verify each seat selected during Seat Selection appears on the confirmation ~ All seats are listed with correct tier,,,
+,,,,,,,Verify the final price paid matches the total shown on the Payment screen ~ Price is consistent,,,
+,,,,,,,Verify the event name matches the event booked ~ Correct event is shown,,,
+T037,Out-of-scope features are not accessible in the app,"Verify that account creation, login, booking cancellation, free-text search, and real payment fields are not present in the app.",Active,Low,not_automated,Guest is in a fresh session.,"Navigate through all screens ~ No sign-in, register, or account creation option is present",,functional,None
+,,,,,,,Check the Event List screen ~ No free-text search field is present; only category filter chips,,,
+,,,,,,,"Check the Payment screen ~ No card number, CVV, or billing address fields are present",,,
+,,,,,,,Check My Bookings ~ No cancel or edit booking option is present on any booking entry,,,
